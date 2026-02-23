@@ -16,6 +16,11 @@ DEBUG = os.getenv("DEBUG", "True") == "True"
 allowed_hosts_env = os.getenv("ALLOWED_HOSTS", "")
 ALLOWED_HOSTS = [host for host in allowed_hosts_env.split(",") if host]
 
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+
+chat_ids_env = os.getenv("CHAT_IDS", "")
+CHAT_IDS = [cid.strip() for cid in chat_ids_env.split(",") if cid.strip()]
+
 # ALLOWED_HOSTS = ("*")
 
 

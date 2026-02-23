@@ -225,6 +225,9 @@ def place_order(request):
     cart_items.delete()
     cart.delete()
 
+    from django.conf import settings
+    import requests
+
     # Отправка в Telegram (оставляем как есть)
     message = (
             f"📦 New ZAKAZ\n"
@@ -240,7 +243,17 @@ def place_order(request):
             f"🛒 Mahsulotlar:\n" + "\n".join(order_summary) +
             f"\n\n💰 Umumiy hisob: {total_price:.2f} So'm"
     )
-    send_telegram_message(message)
+
+    # Отправляем каждому ID из .env
+    for chat_id in settings.CHAT_IDS:
+        url = f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage"
+        payload = {"chat_id": chat_id, "text": message}
+
+        try:
+            requests.post(url, json=payload)
+        except Exception as e:
+            print("Telegram error:", e)
+    # send_telegram_message(message)
 
     return JsonResponse({"success": True, "redirect_url": "/order_success/"})
 
