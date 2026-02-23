@@ -1,0 +1,17 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Kirish{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h1>Kirish</h1>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Tizimga kirish</button>
+    </form>
+    <p>Accountingiz yo'qmi? <a href="{% url 'signup' %}">Bu yerda ro'yxatdan o'ting</a>.</p>
+</div>
+{% endblock %}
+
+

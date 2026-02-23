@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <h2>{{ product.name }}</h2>
+    <p class="product-price">{{ product.price| floatformat:0 }} So'm</p>
+
+    {% if product.is_available %}
+    <p style="color: green;">✅</p>
+    {% else %}
+    <p style="color: red;">❌Tugadi(</p>
+    {% endif %}
+
+    {% if product.photo and product.photo.url %}
+    <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="width:300px; height:auto;">
+    {% else %}
+    <p>Surat yo'q</p>
+    {% endif %}
+
+
+    <div class="product-gallery">
+        {% for image in product.images.all %}
+        <img src="{{ image.image.url }}" alt="Фото {{ product.name }}" class="gallery-image"
+             style="width:100px; height:auto;">
+        {% endfor %}
+    </div>
+
+    <p>tavsif:</p>
+
+    <ul>
+        {% for item in product.description.splitlines %}
+        <li>{{ item|striptags }}</li>
+        {% endfor %}
+    </ul>
+
+    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+
+    <div class="product-buttons">
+        <button class="add-to-cart button"
+                data-product-id="{{ product.id }}"
+                data-available="{{ product.is_available|yesno:'true,false' }}"
+                {% if not product.is_available %}disabled{% endif %}>
+           🛒 Savatga
+<!--            <i class="fas fa-shopping-cart"> У кошик</i>-->
+        </button>
+    </div>
+
+</div>
+
+{% endblock %}
+

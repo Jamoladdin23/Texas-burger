@@ -1,0 +1,40 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Shaurma{% endblock %}
+
+{% block content %}
+<!--<h2>Bu umumiy menyu, toifani tanlang 👆🏽 </h2>-->
+<!--<h2> Bizada hamma narsa bor!</h2>-->
+
+<div class="product-list">
+
+    {% for product in products %}
+    <div class="product-item">
+        <a href="{% url 'product_detail' product.id %}" class="product-link">{{ product.name }}</a>
+        {% if product.photo %}
+        <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="width:300px; height:auto;">
+        {% endif %}
+        <div>
+            <p class="product-price">{{ product.price | floatformat:0 }} So'm</p>
+            <!--            <a href="{% url 'product_detail' product.id %}" class="button-link">Детально</a>-->
+
+        </div>
+
+        <div>
+            <div class="product-buttons">
+                <button class="add-to-cart button"
+                        data-product-id="{{ product.id }}"
+                        data-available="{{ product.is_available|yesno:'true,false' }}"
+                        {% if not product.is_available %}disabled{% endif %}>
+                    <i class="fas fa-shopping-cart"></i>
+
+                </button>
+<!--                {% if not product.is_available %}-->
+<!--                <p style="color: red;">❌Закінчилась(</p>-->
+<!--                {% endif %}-->
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

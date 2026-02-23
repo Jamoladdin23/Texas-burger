@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "aos": "^2.3.4",
+    "shopify-cartjs": "^1.1.0"
+  },
+  "devDependencies": {
+    "purgecss": "^8.0.0"
+  }
+}

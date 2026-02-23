@@ -1,0 +1,41 @@
+{% extends 'store/base.html' %}
+{% load static  %}
+
+{% block title %}Buyurtma berish{% endblock %}
+
+{% block content %}
+
+<style>
+    #order-form {
+        display: block !important;
+        margin-top: 20px;
+        max-width: 400px;
+    }
+
+    #order-form label { display: block; margin-top: 10px; font-weight: bold; }
+    #order-form input { width: 100%; padding: 5px; margin-top: 5px; box-sizing: border-box; }
+    #order-form button[type="submit"] { margin-top: 15px; padding: 8px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    #order-form button[type="submit"]:hover { background-color: #45a049; }
+</style>
+
+<h2>Buyurtma berish</h2>
+<button id="open-order-form">Buyurtmani to'ldiring</button>
+
+<form id="order-form" method="POST" action="{% url 'place_order' %}" style="display: none;">
+    {% csrf_token %}
+
+    <label for="recipient_name">Mijozning ismi:</label>
+    <input type="text" name="recipient_name" id="recipient_name" placeholder="Введите имя" required>
+
+    <label for="address">Manzil:</label>
+    <input type="text" name="address" id="address" placeholder="Введите адрес" required>
+
+    <label for="phone_number">Telefon:</label>
+    <input type="tel" name="phone_number" id="phone_number" placeholder="Введите телефон" required>
+
+
+    <button type="submit">Buyurtma berish</button>
+</form>
+
+
+{% endblock %}

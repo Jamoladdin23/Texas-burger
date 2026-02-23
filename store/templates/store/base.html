@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+
+    <title>{% block title %}TEXAS BURGER{% endblock %}</title>
+
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'apple-touch-icon-precomposed.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}"> <!-- Для анимаций -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/shopify-cartjs/1.1.0/cart.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/shopify-cartjs/1.1.0/rivets-cart.min.js"></script>
+    <script src="{% static 'js/aos.min.js' %}" defer></script>
+    <script src="{% static 'js/utils.js' %}" defer></script>
+    <script src="{% static 'js/order.js' %}" defer></script>
+    <script src="{% static 'js/cart.js' %}" defer></script>
+    <script src="{% static 'js/filters.js' %}"></script>
+    <script src="{% static 'js/animations.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.min.js"></script>
+
+
+</head>
+<body>
+
+<!--old shablon header - full-work-->
+<div data-aos="fade-up">
+    <div class="header" style="background-image: url('/media/product_images/fire3.png');
+
+background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <!--</div>-->
+
+        <!--    <div data-aos="fade-up">-->
+<!--        <h6>Xush galipsiz</h6>-->
+    </div>
+
+    <!--    dobavish eto esli dlya usera-->
+    <!--    <div class="header-right">-->
+    <!--        <a href="{% url 'cart_view' %}" id="header-cart" class="cart-icon hidden">-->
+    <!--            🛒 <span id="cart-count">{{ cart_count|default:0 }}</span>-->
+    <!--        </a>-->
+
+    <!--        {% if user.is_authenticated %}-->
+    <!--        <span class="welcome">👤 {{ user.username }}</span>-->
+    <!--        {% endif %}-->
+    <!--    </div>-->
+
+    <!--    za buttons na headere WORKS111-->
+    <!--    <div class="header-wrapper">-->
+    <!--        <div class="header-buttons">-->
+
+    <!--            <h5><a href="{% url 'product_list' %}">Dastavka</a></h5>-->
+    <!--            <h5><a href="{% url 'category_list' %}">Kategoriya</a></h5>-->
+
+    <!--            <h5><a href="{% url 'cart_view' %}" class="button">🛒 Karzinka</a></h5>-->
+
+
+    <!--            <div class="user-section">-->
+    <!--                {% if user.is_authenticated %}-->
+    <!--                <div class="welcome-message">Welcome:{{ user.username }}!</div>-->
+
+    <!--                <form method="post" action="{% url 'logout' %}">-->
+    <!--                    {% csrf_token %}-->
+    <!--                    <button type="submit" class="button">Вихід</button>-->
+    <!--                </form>-->
+    <!--                {% else %}-->
+    <!--                &lt;!&ndash;                <a href="{% url 'login' %}" class="button">Вхід</a>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                <a href="{% url 'signup' %}" class="button">Sign-up</a>&ndash;&gt;-->
+    <!--                {% endif %}-->
+
+    <!--            </div>-->
+
+
+    <!--        </div>-->
+
+    <!--    </div>-->
+
+</div>
+
+<div class="category-scroll">
+    <a href="{% url 'product_list' %}" class="category-pill">
+        Umumiy Menu
+    </a>
+    {% for cat in all_categories %}
+    <a href="{% url 'category_detail' cat.id %}"
+       class="category-pill">
+        {{ cat.name }}
+    </a>
+    {% endfor %}
+</div>
+
+
+<div>
+    <a href="{% url 'cart_view' %}"
+       id="floating-cart"
+       class="floating-cart hidden">
+        🛒 <span id="cart-count">{{ cart_count|default:0 }}</span>
+    </a>
+</div>
+
+<!--</header>-->
+<div class="container">
+    <main>
+        {% block content %}
+        <!-- Здесь будет контент дочерних шаблонов -->
+
+        {% endblock %}
+    </main>
+
+</div>
+
+
+<footer class="footer" style="background-image: url('/media/product_images/fire2.png');
+background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <h6 class="dev-note">
+            Agar sizga shunday web-sayt kerak bo'lsa, Telegram aloqa!:
+            <a href="https://t.me/Jamoladdin23" target="_blank">@Jamoladdin23</a>
+        </h6>
+    <div>
+
+        <!-- Левая часть: Социальные сети и контакты -->
+
+
+        <div>
+            <h5>Filiallarimiz adresi</h5>
+
+            <select id="branch-select">
+                <option value="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2985.4581781372767!2d60.6194322!3d41.55932740000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfcf4e66e44733%3A0xbff937ba164b9c4a!2sTEXAS%20BURGER!5e0!3m2!1sru!2scz!4v1768253972261!5m2!1sru!2scz">
+                    Filial 1 – Paxlavon Mahmud ko‘chasi 42
+                </option>
+
+                <option value="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d392.0177223898452!2d60.60321469190198!3d41.56959715333271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfc9b21eac3d99%3A0x73909542d6861989!2sXorazm%20Umra%20Jamiyati!5e0!3m2!1sen!2scz!4v1771370127457!5m2!1sen!2scz">
+                    Filial 2 – Xorazm Umra Jamiyati
+                </option>
+            </select>
+        </div>
+
+        <div style="margin-top:15px;">
+            <iframe
+                    id="map-frame"
+                    width="90%"
+                    height="200"
+                    style="border:0;"
+                    loading="lazy"
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <script>
+            const select = document.getElementById("branch-select");
+            const mapFrame = document.getElementById("map-frame");
+
+            // карта по умолчанию
+            mapFrame.src = select.value;
+
+            select.addEventListener("change", function() {
+                mapFrame.src = this.value;
+            });
+        </script>
+
+
+    </div>
+    <div class="dev-note">
+        <h5>Bizning kontaktlarimiz</h5>
+        <h6>Telefon: +998 88 187 86 88</h6>
+        <h6>Email: texasburger.n1@gmail.com</h6>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/texasburger_urgench?igsh=MXUxYjRrcGU0bjA4NA==" target="_blank"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://telegram.org" target="_blank"><i class="fab fa-telegram"></i></a>
+        </div>
+    </div>
+    <p class="copyright">© All rights reserved 2026</p>
+
+</footer>
+
+</body>
+</html>
