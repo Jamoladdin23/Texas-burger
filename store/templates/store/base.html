@@ -22,6 +22,10 @@
     <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
     <link rel="apple-touch-icon-precomposed" href="{% static 'apple-touch-icon-precomposed.png' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;500&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet">
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
@@ -49,56 +53,64 @@
 <body>
 
 <!--old shablon header - full-work-->
-<div data-aos="fade-up">
-    <div class="header" style="background-image: url('/static/image/fire3.png');
+<!--<div data-aos="fade-up">-->
+<div class="header" style="
+    background-image: url('/static/image/fire3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;">
 
-background-size: cover; background-position: center; background-repeat: no-repeat;">
-        <!--</div>-->
+    <!--    <div class="logo">-->
+    <!--        <img src="/static/image/logo.png" alt="Texas Burger Logo">-->
+    <!--    </div>-->
+    <div data-aos="fade-up" class="greeting">
 
-        <!--    <div data-aos="fade-up">-->
-<!--        <h6>Xush galipsiz</h6>-->
+        <h1>TEXAS-BURGER.online</h1>
+        <h4>Yetkazip berish 🛵 va Oldindan buyurtma 🕒 xizmatlari</h4>
     </div>
 
-    <!--    dobavish eto esli dlya usera-->
-    <!--    <div class="header-right">-->
-    <!--        <a href="{% url 'cart_view' %}" id="header-cart" class="cart-icon hidden">-->
-    <!--            🛒 <span id="cart-count">{{ cart_count|default:0 }}</span>-->
-    <!--        </a>-->
+</div>
 
-    <!--        {% if user.is_authenticated %}-->
-    <!--        <span class="welcome">👤 {{ user.username }}</span>-->
-    <!--        {% endif %}-->
-    <!--    </div>-->
+<!--    dobavish eto esli dlya usera-->
+<!--    <div class="header-right">-->
+<!--        <a href="{% url 'cart_view' %}" id="header-cart" class="cart-icon hidden">-->
+<!--            🛒 <span id="cart-count">{{ cart_count|default:0 }}</span>-->
+<!--        </a>-->
 
-    <!--    za buttons na headere WORKS111-->
-    <!--    <div class="header-wrapper">-->
-    <!--        <div class="header-buttons">-->
+<!--        {% if user.is_authenticated %}-->
+<!--        <span class="welcome">👤 {{ user.username }}</span>-->
+<!--        {% endif %}-->
+<!--    </div>-->
 
-    <!--            <h5><a href="{% url 'product_list' %}">Dastavka</a></h5>-->
-    <!--            <h5><a href="{% url 'category_list' %}">Kategoriya</a></h5>-->
+<!--    za buttons na headere WORKS111-->
+<!--    <div class="header-wrapper">-->
+<!--        <div class="header-buttons">-->
 
-    <!--            <h5><a href="{% url 'cart_view' %}" class="button">🛒 Karzinka</a></h5>-->
+<!--            <h5><a href="{% url 'product_list' %}">Dastavka</a></h5>-->
+<!--            <h5><a href="{% url 'category_list' %}">Kategoriya</a></h5>-->
 
-
-    <!--            <div class="user-section">-->
-    <!--                {% if user.is_authenticated %}-->
-    <!--                <div class="welcome-message">Welcome:{{ user.username }}!</div>-->
-
-    <!--                <form method="post" action="{% url 'logout' %}">-->
-    <!--                    {% csrf_token %}-->
-    <!--                    <button type="submit" class="button">Вихід</button>-->
-    <!--                </form>-->
-    <!--                {% else %}-->
-    <!--                &lt;!&ndash;                <a href="{% url 'login' %}" class="button">Вхід</a>&ndash;&gt;-->
-    <!--                &lt;!&ndash;                <a href="{% url 'signup' %}" class="button">Sign-up</a>&ndash;&gt;-->
-    <!--                {% endif %}-->
-
-    <!--            </div>-->
+<!--            <h5><a href="{% url 'cart_view' %}" class="button">🛒 Karzinka</a></h5>-->
 
 
-    <!--        </div>-->
+<!--            <div class="user-section">-->
+<!--                {% if user.is_authenticated %}-->
+<!--                <div class="welcome-message">Welcome:{{ user.username }}!</div>-->
 
-    <!--    </div>-->
+<!--                <form method="post" action="{% url 'logout' %}">-->
+<!--                    {% csrf_token %}-->
+<!--                    <button type="submit" class="button">Вихід</button>-->
+<!--                </form>-->
+<!--                {% else %}-->
+<!--                &lt;!&ndash;                <a href="{% url 'login' %}" class="button">Вхід</a>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <a href="{% url 'signup' %}" class="button">Sign-up</a>&ndash;&gt;-->
+<!--                {% endif %}-->
+
+<!--            </div>-->
+
+
+<!--        </div>-->
+
+<!--    </div>-->
 
 </div>
 
@@ -137,14 +149,21 @@ background-size: cover; background-position: center; background-repeat: no-repea
 
 <footer class="footer" style="background-image: url('/static/image/fire2.png');
 background-size: cover; background-position: center; background-repeat: no-repeat;">
-    <h6 class="dev-note">
-            Agar sizga shunday web-sayt kerak bo'lsa, Telegram aloqa!:
-            <a href="https://t.me/Jamoladdin23" target="_blank">@Jamoladdin23</a>
-        </h6>
+
     <div>
 
         <!-- Левая часть: Социальные сети и контакты -->
-
+        <div class="dev-note">
+            <h5>Bizning kontaktlarimiz</h5>
+            <h6>Telefon: +998 88 187 86 88</h6>
+            <h6>Email: texasburger.n1@gmail.com</h6>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/texasburger_urgench?igsh=MXUxYjRrcGU0bjA4NA==" target="_blank"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://telegram.org" target="_blank"><i class="fab fa-telegram"></i></a>
+            </div>
+        </div>
 
         <div>
             <h5>Filiallarimiz adresi</h5>
@@ -184,17 +203,11 @@ background-size: cover; background-position: center; background-repeat: no-repea
 
 
     </div>
-    <div class="dev-note">
-        <h5>Bizning kontaktlarimiz</h5>
-        <h6>Telefon: +998 88 187 86 88</h6>
-        <h6>Email: texasburger.n1@gmail.com</h6>
-        <div class="social-icons">
-            <a href="https://www.instagram.com/texasburger_urgench?igsh=MXUxYjRrcGU0bjA4NA==" target="_blank"><i
-                    class="fab fa-instagram"></i></a>
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-            <a href="https://telegram.org" target="_blank"><i class="fab fa-telegram"></i></a>
-        </div>
-    </div>
+
+    <h6 class="dev-note">
+        Biznesingiz uchun WEB-Sayt 0$! aloqa:
+        <a href="https://t.me/Jamoladdin23" target="_blank">Telegramda</a>
+    </h6>
     <p class="copyright">© All rights reserved 2026</p>
 
 </footer>

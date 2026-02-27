@@ -166,7 +166,7 @@ footer {
         .header {
             display: flex;
             justify-content: space-between;
-            border-radius: 2px;
+            border-radius: 20px;
             align-items: baseline;
             /*background-color: #78373C; /* Цвет #78373C фона */
             color: white; /* Цвет текста */
@@ -554,6 +554,33 @@ footer {
 
 #order-form button:hover {
     background-color: #45a049;
+}
+
+.greeting{
+    text-align: center;
+    font-size: 15px;
+    padding: 15px;
+    color: red; /* Зеленый цвет */
+
+h1 {
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    text-shadow: -1px 0 1px white;
+}
+
+
+h4 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    color: white;
+}
+
+}
+@media (max-width: 600px) {
+    .greeting {
+        font-size: 10px; !important
+    }
 }
 /*tut*/
 /* Заголовок корзины */
@@ -1007,7 +1034,9 @@ h2 {
 }
 
 .category-scroll {
-    border-bottom: 1px solid black;
+    border-bottom: 4px solid black;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
 }
 
 
@@ -1037,9 +1066,11 @@ h2 {
 }
 
 .dev-note {
+font-family: 'Oswald', sans-serif;
+    font-weight: 700;
     font-size: 14px;
     font-weight: 400;
-    color: #666;
+    color: white;
     text-align: center;
     margin-top: 25px;
     opacity: 0.9;
@@ -1058,7 +1089,7 @@ h2 {
 .copyright {
     text-align: center;
     font-size: 13px;
-    color: #777;
+    color: orange;
     margin-top: 10px;
     opacity: 0.8;
 }
