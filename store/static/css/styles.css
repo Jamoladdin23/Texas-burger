@@ -70,13 +70,14 @@ footer {
 
 /* ✅ Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
-    .footer-container {
+    .footer {
         flex-direction: column; /* ✅ Перестраиваем подвал вертикально */
         align-items: center;
         margin: 0 !important; /* ✅ Убираем лишние отступы */
         padding: 0 !important;
         width: 100% !important;
         overflow: hidden;
+
     }
 
     .footer-left, .footer-right {
@@ -515,7 +516,7 @@ footer {
 
 #order-form {
     background-color: #f9f9f9; /* Светлый фон */
-    padding: 20px; /* Пространство внутри формы */
+    padding: 30px; /* Пространство внутри формы */
     border-radius: 10px; /* Закругленные углы */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень для эффекта "карточки" */
     max-width: 400px;
@@ -562,7 +563,7 @@ footer {
     padding: 15px;
     color: red; /* Зеленый цвет */
 
-h1 {
+h2 {
 
     font-family: 'Poppins', sans-serif;
     font-weight: 900;
@@ -570,7 +571,7 @@ h1 {
 }
 
 
-h4 {
+h5 {
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
     color: white;
@@ -584,7 +585,7 @@ h4 {
 }
 /*tut*/
 /* Заголовок корзины */
-h2 {
+h3 {
     text-align: center;
     font-size: 24px;
     color: black; /* Зеленый цвет */
@@ -594,7 +595,7 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
 }
 @media (max-width: 600px) {
-    h2 {
+    h3 {
         font-size: 12px !important;           /* Меньший размер шрифта */
         padding: 2px !important;            /* Меньше отступ */
         border-radius: 6px !important;        /* Чуть менее округлённые края */
@@ -880,7 +881,7 @@ h2 {
 
 
 /* Стили заголовка */
-h2 {
+h3 {
     text-align: center;
     font-size: 24px;
     color: black; /* Зеленый */

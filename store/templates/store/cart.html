@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h2 class="cart-title">🛒 Savatingiz</h2>
+<h3 class="cart-title">🛒 Savatingiz</h3>
 
 {% if cart_items %}
 <div class="cart-container">
@@ -78,9 +78,9 @@
 <form id="order-form" style="display:none; margin-top:20px;">
     {% csrf_token %}
 
-    <input type="text" name="recipient_name" placeholder="Ism" required>
-    <input type="text" name="address" placeholder="Manzil" required>
-    <input type="text" name="phone_number" placeholder="Telefon" required>
+    <input type="text" name="recipient_name" placeholder="Ismingiz?" required>
+    <input type="text" name="address" placeholder="Dastavka?-Adresingiz: Predzakaz?-filial Adresi:" required>
+    <input type="text" name="phone_number" placeholder="Telefon: yoki Telegram nickingiz: @..." required>
     <input type="text" name="comment" placeholder="Buyurtmaga izoh, istak, comment (ixtiyoriy)">
 
 

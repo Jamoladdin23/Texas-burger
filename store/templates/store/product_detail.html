@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="product-detail">
-    <h2>{{ product.name }}</h2>
+    <h3>{{ product.name }}</h3>
     <p class="product-price">{{ product.price| floatformat:0 }} So'm</p>
 
     {% if product.is_available %}
