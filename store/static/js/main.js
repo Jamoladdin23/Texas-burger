@@ -1,6 +1,5 @@
 
 function updateCartUI() {
-    console.log("Обновление корзины...");
 }
 
 document.addEventListener("DOMContentLoaded", function () {

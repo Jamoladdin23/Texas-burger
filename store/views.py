@@ -220,7 +220,7 @@ def place_order(request):
     for item in cart_items:
         OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity)
         total_price += item.product.price * item.quantity
-        order_summary.append(f"{item.product.name} x {item.quantity} = {item.product.price * item.quantity} ₴")
+        order_summary.append(f"{item.product.name} x {item.quantity} = {item.product.price * item.quantity} So'm")
 
     cart_items.delete()
     cart.delete()
