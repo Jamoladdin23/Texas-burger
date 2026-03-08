@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import Product, Category, Cart, CartItem, Payment
+from .models import Product, Category, Extra, Sauce
 
 
 # class CartAdmin(admin.ModelAdmin):
@@ -13,4 +13,6 @@ from .models import Product, Category, Cart, CartItem, Payment
 # admin.site.register(CartItem)
 admin.site.register(Product)
 admin.site.register(Category)
+admin.site.register(Extra)
+admin.site.register(Sauce)
 # admin.site.register(Payment)

@@ -25,13 +25,12 @@
                 <button class="add-to-cart button"
                         data-product-id="{{ product.id }}"
                         data-available="{{ product.is_available|yesno:'true,false' }}"
-                        {% if not product.is_available %}disabled{% endif %}>
-                    <i class="fas fa-shopping-cart"></i>
-
+                        data-has-options="{{ product.has_options|yesno:'true,false' }}"
+                        {% if not product.is_available %}disabled{% endif %}><i class="fas fa-shopping-cart"></i>
                 </button>
-<!--                {% if not product.is_available %}-->
-<!--                <p style="color: red;">❌Закінчилась(</p>-->
-<!--                {% endif %}-->
+                <!--                {% if not product.is_available %}-->
+                <!--                <p style="color: red;">❌Закінчилась(</p>-->
+                <!--                {% endif %}-->
             </div>
         </div>
     </div>

@@ -19,8 +19,26 @@
 
         <div class="cart-center">
             <h3>{{ item.product.name }}</h3>
-            <p>Miqdori: <strong>{{ item.quantity }}</strong></p>
-            <p class="price">{{ item.product.price }} so'm</p>
+            {% if item.extras.all %}
+            <p><strong>Qo'shimcha:</strong></p>
+            <ul>
+                {% for extra in item.extras.all %}
+                <li>{{ extra.name }} (+{{ extra.price }} So'm)</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if item.sauces.all %}
+            <p><strong>Sous:</strong></p>
+            <ul>
+                {% for sauce in item.sauces.all %}
+                <li>{{ sauce.name }}{% if sauce.price %} (+{{ sauce.price }} So'm){% endif %}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <p>Miqdor: <strong>{{ item.quantity }}</strong></p>
+            <p class="price">{{ item.get_total_price }} So'm</p>
 
             <form action="{% url 'update_cart_item' item.id %}" method="post" class="qty-form">
                 {% csrf_token %}

@@ -14,6 +14,12 @@ from django.views.decorators.csrf import csrf_exempt
 class CustomLoginView(LoginView):
     template_name = 'store/login.html'
 
+# change IDs for showing selecter popular products
+def home(request):
+    products = Product.objects.filter(id__in=[20, 16, 40, 18, 17, 19], is_available=True)
+    # products = Product.objects.filter(is_available=True)[:6]  # популярные
+    return render(request, "store/home.html", {"products": products})
+
 
 def update_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
@@ -80,7 +86,7 @@ def add_to_cart(request, product_id):
         try:
             product = get_object_or_404(Product, id=product_id)
 
-            # 📌 Проверяем, авторизован ли пользователь
+            # Определяем корзину
             if request.user.is_authenticated:
                 cart, _ = Cart.objects.get_or_create(user=request.user)
             else:
@@ -88,22 +94,70 @@ def add_to_cart(request, product_id):
                 if not session_key:
                     request.session.create()
                 session_key = request.session.session_key
+                cart, _ = Cart.objects.get_or_create(session_key=session_key)
 
-                cart, _ = Cart.objects.get_or_create(session_key=session_key)  # ✅ Корзина для анонимных
+            quantity = int(request.POST.get("quantity", 1))
+            extras_ids = request.POST.getlist("extras")
+            sauces_ids = request.POST.getlist("sauces")
 
-            # 📌 Добавляем товар в корзину
-            cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-            if not created:
-                cart_item.quantity += 1
-                cart_item.save()
+            # Преобразуем в множества (для сравнения)
+            extras_set = set(map(int, extras_ids))
+            sauces_set = set(map(int, sauces_ids))
 
-            return JsonResponse({"success": True, "quantity": sum(item.quantity for item in cart.items.all())
-                                    , "message": "Товар добавлен в корзину!"})
+            # ============================================================
+            # Ищем существующий CartItem с таким же составом
+            # ============================================================
+            for item in cart.items.all():
+                item_extras = set(item.extras.values_list("id", flat=True))
+                item_sauces = set(item.sauces.values_list("id", flat=True))
+
+                if (
+                        item.product.id == product.id and
+                        item_extras == extras_set and
+                        item_sauces == sauces_set
+                ):
+                    # Нашли идентичный товар → увеличиваем количество
+                    item.quantity += quantity
+                    item.save()
+
+                    return JsonResponse({
+                        "success": True,
+                        "quantity": sum(i.quantity for i in cart.items.all()),
+                        "message": "Кількість оновлено!"
+                    })
+
+            # ============================================================
+            # Если идентичного товара нет → создаём новый CartItem
+            # ============================================================
+            cart_item = CartItem.objects.create(
+                cart=cart,
+                product=product,
+                quantity=quantity
+            )
+
+            if extras_ids:
+                cart_item.extras.set(extras_ids)
+
+            if sauces_ids:
+                cart_item.sauces.set(sauces_ids)
+
+            cart_item.save()
+
+            return JsonResponse({
+                "success": True,
+                "quantity": sum(i.quantity for i in cart.items.all()),
+                "message": "Товар додано!"
+            })
 
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)})
 
-    return JsonResponse({"success": False, "error": "Некорректный запрос"})
+    return JsonResponse({"success": False, "error": "Некоректний запит"})
+
+
+def get_product_options(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, "store/product_options.html", {"product": product})
 
 
 def cart_view(request):
@@ -121,7 +175,8 @@ def cart_view(request):
 
     #  Получаем товары из корзины
     cart_items = CartItem.objects.filter(cart=cart)
-    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    total_price = sum(item.get_total_price() for item in cart_items)
+    # total_price = sum(item.product.price * item.quantity for item in cart_items)
 
     return render(request, 'store/cart.html', {'cart_items': cart_items, 'total_price': total_price})
 
@@ -172,8 +227,8 @@ def place_order(request):
     comment = request.POST.get("comment", "")
 
     # 🔑 Добавляем новые поля для типа заказа и филиала
-    order_type = request.POST.get("order_type")
-    branch = request.POST.get("branch") if order_type == "preorder" else None
+    # order_type = request.POST.get("order_type")
+    # branch = request.POST.get("branch") if order_type == "preorder" else None
 
     if not recipient_name or not address or not phone_number:
         return JsonResponse({"success": False, "error": "Заполните все поля!"}, status=400)
@@ -217,10 +272,38 @@ def place_order(request):
     total_price = 0
     order_summary = []
 
+    # for item in cart_items:
+    #     OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity)
+    #     total_price += item.product.price * item.quantity
+    #     order_summary.append(f"{item.product.name} x {item.quantity} = {item.product.price * item.quantity} So'm")
     for item in cart_items:
         OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity)
-        total_price += item.product.price * item.quantity
-        order_summary.append(f"{item.product.name} x {item.quantity} = {item.product.price * item.quantity} So'm")
+
+        # Цена позиции с учётом добавок
+        item_total = item.get_total_price()
+        total_price += item_total
+
+        # Формируем строку для Telegram
+        line = f"{item.product.name} × {item.quantity} \n"
+
+        extras = item.extras.all()
+        sauces = item.sauces.all()
+
+        if extras:
+            line += "Qo'shimcha:\n"
+            for extra in extras:
+                line += f"+ {extra.name} (+{extra.price} So'm)\n"
+
+        if sauces:
+            line += "Sous:\n"
+            for sauce in sauces:
+                line += f"+ {sauce.name} (+{sauce.price} So'm)\n"
+
+        line += f"Summa: {item_total} So'm"
+
+        order_summary.append("━━━━━━━━━━━━━━━━\n"
+                             + line +
+                             "\n━━━━━━━━━━━━━━━━")
 
     cart_items.delete()
     cart.delete()
@@ -241,7 +324,7 @@ def place_order(request):
             f"💬 Istaklari (comment): {comment if comment else 'No comment'}\n\n"
 
             f"🛒 Mahsulotlar:\n" + "\n".join(order_summary) +
-            f"\n\n💰 Umumiy hisob: {total_price:.2f} So'm"
+            f"\n\n💰 Umumiy hisob: {total_price} So'm"
     )
 
     # Отправляем каждому ID из .env

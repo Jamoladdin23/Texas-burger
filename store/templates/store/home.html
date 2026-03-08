@@ -1,0 +1,46 @@
+{% extends 'store/base.html' %}
+
+{% block title %}TxB{% endblock %}
+
+{% block content %}
+
+
+<section class="home-hero">
+    <h2>Texas-burger.online</h2>
+
+    <h4>Mazali burgerlar • tezkor yetkazib berish • eng yaxshi sifat</h4>
+    <h6>Yetkazib berish yoki oldindan onlayn buyurtma bering — navbat yoki qo'ng'iroqlarsiz. Hammasi tez va qulay.</h6>
+
+    <a href="{% url 'product_list' %}" class="hero-button">
+        Menyuga o'ting
+    </a>
+</section>
+
+
+<section class="home-popular">
+
+    <h2>Ommabop taomlar</h2>
+
+    <div class="product-list">
+
+        {% for product in products %}
+        <div class="product-item">
+
+            <a href="{% url 'product_detail' product.id %}">
+                <img src="{{ product.photo.url }}" style="width:250px;">
+            </a>
+
+            <p>{{ product.name }}</p>
+
+            <p class="product-price">
+                {{ product.price|floatformat:0 }} So'm
+            </p>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

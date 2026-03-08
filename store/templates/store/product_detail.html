@@ -7,13 +7,17 @@
 {% block content %}
 <div class="product-detail">
     <h3>{{ product.name }}</h3>
-    <p class="product-price">{{ product.price| floatformat:0 }} So'm</p>
 
-    {% if product.is_available %}
-    <p style="color: green;">✅</p>
-    {% else %}
-    <p style="color: red;">❌Tugadi(</p>
-    {% endif %}
+    <div class="price-status">
+
+        <p class="product-price">{{ product.price| floatformat:0 }} So'm</p>
+        {% if product.is_available %}
+        <p style="color: green;">✅</p>
+        {% else %}
+        <p style="color: red;">❌Tugadi(</p>
+        {% endif %}
+    </div>
+
 
     {% if product.photo and product.photo.url %}
     <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="width:300px; height:auto;">
@@ -29,7 +33,7 @@
         {% endfor %}
     </div>
 
-    <p>tavsif:</p>
+    <p class="desc-title">tavsif:</p>
 
     <ul>
         {% for item in product.description.splitlines %}
@@ -43,9 +47,11 @@
         <button class="add-to-cart button"
                 data-product-id="{{ product.id }}"
                 data-available="{{ product.is_available|yesno:'true,false' }}"
-                {% if not product.is_available %}disabled{% endif %}>
-           🛒 Savatga
-<!--            <i class="fas fa-shopping-cart"> У кошик</i>-->
+                data-has-options="{{ product.has_options|yesno:'true,false' }}"
+
+                {% if not product.is_available %}disabled style="background:#ccc; cursor:not-allowed;"{% endif %}>
+            🛒 Savatga
+            <!--            <i class="fas fa-shopping-cart"> У кошик</i>-->
         </button>
     </div>
 

@@ -17,17 +17,19 @@
 
         <p class="product-price">{{ product.price | floatformat:0 }}So'm</p>
         <!--            <a href="{% url 'product_detail' product.id %}" class="button-link">Детально</a>-->
-<!--        {% if product.is_available %}-->
-<!--        <p style="color: green;"></p>-->
-<!--        {% else %}-->
-<!--        <p style="color: red;">❌Закінчилась(</p>-->
-<!--        {% endif %}-->
+        <!--        {% if product.is_available %}-->
+        <!--        <p style="color: green;"></p>-->
+        <!--        {% else %}-->
+        <!--        <p style="color: red;">❌Закінчилась(</p>-->
+        <!--        {% endif %}-->
         <div class="product-buttons">
             <button class="add-to-cart button"
                     data-product-id="{{ product.id }}"
                     data-available="{{ product.is_available|yesno:'true,false' }}"
+                    data-has-options="{{ product.has_options|yesno:'true,false' }}"
                     {% if not product.is_available %}disabled{% endif %}>
                 <i class="fas fa-shopping-cart"></i>
+
             </button>
         </div>
 

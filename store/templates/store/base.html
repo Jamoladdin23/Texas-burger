@@ -54,18 +54,14 @@
 
 <!--old shablon header - full-work-->
 <!--<div data-aos="fade-up">-->
-<div class="header" style="
-    background-image: url('/static/image/fire3.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;">
+<div class="header">
 
     <!--    <div class="logo">-->
     <!--        <img src="/static/image/logo.png" alt="Texas Burger Logo">-->
     <!--    </div>-->
     <div data-aos="fade-up" class="greeting">
 
-        <h2>TEXAS-BURGER.online</h2>
+        <h2>TEXAS-BURGER</h2>
         <h5>Yetkazip berish 🛵 va Oldindan buyurtma 🕒 xizmatlari</h5>
     </div>
 
@@ -128,11 +124,13 @@
 
 
 <div>
+    {% if request.resolver_match.url_name != 'cart_view' %}
     <a href="{% url 'cart_view' %}"
        id="floating-cart"
        class="floating-cart hidden">
         🛒 <span id="cart-count">{{ cart_count|default:0 }}</span>
     </a>
+    {% endif %}
 </div>
 
 <!--</header>-->
@@ -212,6 +210,37 @@ background-size: cover; background-position: center; background-repeat: no-repea
     <p class="copyright">© All rights reserved 2026</p>
 
 </footer>
+
+<!-- Модальное окно выбора добавок -->
+<div id="extras-modal"
+     style="display:none;
+            position:fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background:rgba(0,0,0,0.6);
+            z-index:9999;
+            padding-top:80px;">
+
+    <div style="background:white;
+                width:320px;
+                margin:0 auto;
+                padding:20px;
+                border-radius:10px;
+                position:relative;">
+
+        <!--         Кнопка закрытия-->
+        <span id="close-modal"
+              style="position:absolute;
+                     top:10px; right:10px;
+                     cursor:pointer;
+                     font-size:22px;
+                     color: #FF0000;">✖</span>
+
+        <!-- Сюда будет подгружаться форма добавок -->
+        <div id="extras-content"></div>
+
+    </div>
+</div>
 
 </body>
 </html>
